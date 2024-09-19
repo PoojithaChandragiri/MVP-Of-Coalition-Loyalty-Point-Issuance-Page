@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height
+            : 100vh;
+            margin: 0;
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+        }
+        .registration-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        input[type="text"], input[type="email"], input[type="tel"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .message {
+            display: none;
+            margin-top: 15px;
+            color: green;
+            font-size: 16px;
+        }
+        .error {
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="registration-container">
+        <h2>MVP Registration Page</h2>
+        <form id="registrationForm">
+            <input type="text" id="fullName" placeholder="Full Name" required><br>
+            <input type="email" id="email" placeholder="Email Address" required><br>
+            <input type="tel" id="phoneNumber" placeholder="Phone Number" required><br>
+            <input type="password" id="password" placeholder="Password" required><br>
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" required><br>
+            <button type="submit">Register</button>
+        </form>
+        <div id="registrationMessage" class="message">Registration Successful!</div>
+        <div id="errorMessage" class="error">Passwords do not match. Please try again.</div>
+    </div>
+
+    <script>
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const fullName = document.getElementById("fullName").value;
+            const email = document.getElementById("email").value;
+            const phoneNumber = document.getElementById("phoneNumber").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            const registrationMessage = document.getElementById("registrationMessage");
+            const errorMessage = document.getElementById("errorMessage");
+
+            // Check if passwords match
+            if (password === confirmPassword) {
+                // Hide error message if visible
+                errorMessage.style.display = "none";
+
+                // Display success message
+                registrationMessage.style.display = "block";
+                registrationMessage.textContent = "Registration Successful!";
+                registrationMessage.style.color = "green";
+            } else {
+                // Hide success message if visible
+                registrationMessage.style.display = "none";
+
+                // Display error message
+                errorMessage.style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>

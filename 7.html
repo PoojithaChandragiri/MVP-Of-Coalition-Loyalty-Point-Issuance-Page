@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loyalty Point Management</title>
+    <style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.management-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+h2, h3 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.form-group, .settings-group {
+    margin-top: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.management-message {
+    background-color: #dff0d8;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #4CAF50;
+    margin-top: 20px;
+    display: none;
+}
+</style>
+</head>
+<body>
+    <div class="management-container">
+        <h2>Loyalty Point Management</h2>
+
+        <!-- Loyalty Point Overview -->
+        <div class="loyalty-point-overview">
+            <h3>Issued Loyalty Points</h3>
+            <p><strong>Point Name:</strong> <span id="pointName">Loyalty Gold</span></p>
+            <p><strong>Point Symbol:</strong> <span id="pointSymbol">LG</span></p>
+            <p><strong>Total Supply:</strong> <span id="totalSupply">100000</span></p>
+            <p><strong>Remaining Supply:</strong> <span id="remainingSupply">85000</span></p>
+        </div>
+
+        <!-- Management Actions -->
+        <div class="management-actions">
+            <h3>Manage Loyalty Points</h3>
+
+            <!-- Distribute Points -->
+            <div class="form-group">
+                <label for="distributeAmount">Distribute Points</label>
+                <input type="number" id="distributeAmount" name="distributeAmount" placeholder="Amount to distribute" min="1" required>
+                <label for="recipientAddress">Recipient Address</label>
+                <input type="text" id="recipientAddress" name="recipientAddress" placeholder="Enter recipient's address" required>
+                <button onclick="distributePoints()">Distribute</button>
+            </div>
+
+            <!-- Settings -->
+            <div class="settings-group">
+                <h3>Manage Settings</h3>
+                <button onclick="changeTransferability()">Toggle Transferability</button>
+                <button onclick="updateExpiration()">Update Expiration</button>
+            </div>
+        </div>
+
+        <!-- Messages -->
+        <div id="managementMessage" class="management-message" style="display: none;">
+            <p id="messageText"></p>
+        </div>
+    </div>
+
+    <script>
+// Simulate initial loyalty point data
+let loyaltyPointData = {
+    pointName: "Loyalty Gold",
+    pointSymbol: "LG",
+    totalSupply: 100000,
+    remainingSupply: 85000,
+    transferability: true,
+    expiration: "365 days"
+};
+
+// Function to distribute points
+function distributePoints() {
+    const amount = parseInt(document.getElementById('distributeAmount').value);
+    const recipientAddress = document.getElementById('recipientAddress').value;
+    const messageElement = document.getElementById('managementMessage');
+    const messageText = document.getElementById('messageText');
+
+    if (!amount || !recipientAddress) {
+        messageText.textContent = "Please provide a valid amount and recipient address.";
+        messageElement.style.display = "block";
+        return;
+    }
+
+    if (amount > loyaltyPointData.remainingSupply) {
+        messageText.textContent = "Not enough loyalty points in the remaining supply.";
+        messageElement.style.display = "block";
+        return;
+    }
+
+    loyaltyPointData.remainingSupply -= amount;
+    document.getElementById('remainingSupply').textContent = loyaltyPointData.remainingSupply;
+
+    messageText.textContent = `${amount} points successfully distributed to ${recipientAddress}.`;
+    messageElement.style.display = "block";
+}
+
+// Function to toggle transferability
+function changeTransferability() {
+    const messageElement = document.getElementById('managementMessage');
+    const messageText = document.getElementById('messageText');
+
+    loyaltyPointData.transferability = !loyaltyPointData.transferability;
+    messageText.textContent = `Transferability has been set to: ${loyaltyPointData.transferability ? "Enabled" : "Disabled"}.`;
+    messageElement.style.display = "block";
+}
+
+// Function to update expiration
+function updateExpiration() {
+    const newExpiration = prompt("Enter new expiration period in days:");
+    const messageElement = document.getElementById('managementMessage');
+    const messageText = document.getElementById('messageText');
+
+    if (newExpiration && parseInt(newExpiration)) {
+        loyaltyPointData.expiration = `${newExpiration} days`;
+        messageText.textContent = `Expiration updated to ${loyaltyPointData.expiration}.`;
+        messageElement.style.display = "block";
+    } else {
+        messageText.textContent = "Invalid expiration period.";
+        messageElement.style.display = "block";
+    }
+}
+</script>
+</body>
+</html>

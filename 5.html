@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loyalty Point Parameters Definition</title>
+    <style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.loyalty-parameters-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+textarea {
+    resize: none;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    display: none;
+}
+</style>
+</head>
+<body>
+    <div class="loyalty-parameters-container">
+        <h2>Loyalty Point Parameters Definition</h2>
+        <form id="loyaltyPointForm" onsubmit="return handleLoyaltyPointSubmission()">
+            <!-- Point Name -->
+            <div class="form-group">
+                <label for="pointName">Point Name</label>
+                <input type="text" id="pointName" name="pointName" placeholder="Enter loyalty point name" required>
+            </div>
+
+            <!-- Point Symbol -->
+            <div class="form-group">
+                <label for="pointSymbol">Point Symbol</label>
+                <input type="text" id="pointSymbol" name="pointSymbol" placeholder="Enter point symbol (e.g. LPT)" maxlength="4" required>
+            </div>
+
+            <!-- Total Supply -->
+            <div class="form-group">
+                <label for="totalSupply">Total Supply</label>
+                <input type="number" id="totalSupply" name="totalSupply" placeholder="Enter total supply" min="1" required>
+            </div>
+
+            <!-- Expiration (optional) -->
+            <div class="form-group">
+                <label for="expiration">Expiration (in days)</label>
+                <input type="number" id="expiration" name="expiration" placeholder="Optional - Enter expiration period (days)">
+            </div>
+
+            <!-- Transferability -->
+            <div class="form-group">
+                <label for="transferable">Transferability</label>
+                <select id="transferable" name="transferable" required>
+                    <option value="" disabled selected>Can points be transferred?</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+
+            <!-- Additional Restrictions -->
+            <div class="form-group">
+                <label for="restrictions">Additional Restrictions or Features</label>
+                <textarea id="restrictions" name="restrictions" placeholder="Optional - Enter any restrictions or additional features" rows="4"></textarea>
+            </div>
+
+            <!-- Error Message -->
+            <div id="errorMessage" class="error-message"></div>
+
+            <!-- Submit Button -->
+            <button type="submit">Define Loyalty Points</button>
+        </form>
+    </div>
+
+    <script>
+function handleLoyaltyPointSubmission() {
+    const pointName = document.getElementById('pointName').value;
+    const pointSymbol = document.getElementById('pointSymbol').value;
+    const totalSupply = document.getElementById('totalSupply').value;
+    const transferable = document.getElementById('transferable').value;
+    const errorMessage = document.getElementById('errorMessage');
+
+    // Basic validation: Check if required fields are filled
+    if (!pointName || !pointSymbol || !totalSupply || !transferable) {
+        errorMessage.textContent = "Please fill in all required fields.";
+        errorMessage.style.display = "block";
+        return false;
+    }
+
+    // Hide the error message if validation passes
+    errorMessage.style.display = "none";
+
+    // Show success message
+    const successMessage = document.createElement('div');
+    successMessage.textContent = "Loyalty point parameters defined successfully!";
+    successMessage.style.color = "green";
+    successMessage.style.fontSize = "1.1em";
+    successMessage.style.marginTop = "20px";
+    document.querySelector('.loyalty-parameters-container').appendChild(successMessage);
+
+    return false; // Prevent actual form submission for demonstration purposes
+}
+</script>
+</body>
+</html>

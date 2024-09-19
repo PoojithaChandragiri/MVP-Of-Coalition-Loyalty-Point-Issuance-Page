@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand Profile Setup</title>
+    <style>
+    * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.brand-profile-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+textarea {
+    resize: none;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    display: none;
+}
+</style>
+</head>
+<body>
+    <div class="brand-profile-container">
+        <h2>Brand Profile Setup</h2>
+        <form id="brandProfileForm" onsubmit="return handleBrandProfileSubmission()">
+            <!-- Brand Name -->
+            <div class="form-group">
+                <label for="brandName">Brand Name</label>
+                <input type="text" id="brandName" name="brandName" placeholder="Enter brand name" required>
+            </div>
+
+            <!-- Brand Description -->
+            <div class="form-group">
+                <label for="brandDescription">Brand Description</label>
+                <textarea id="brandDescription" name="brandDescription" placeholder="Enter a brief description about your brand" rows="4" required></textarea>
+            </div>
+
+            <!-- Brand Category -->
+            <div class="form-group">
+                <label for="brandCategory">Brand Category</label>
+                <select id="brandCategory" name="brandCategory" required>
+                    <option value="" disabled selected>Select a category</option>
+                    <option value="fashion">Fashion</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="food">Food & Beverages</option>
+                    <option value="beauty">Beauty & Personal Care</option>
+                    <option value="others">Others</option>
+                </select>
+            </div>
+
+            <!-- Brand Website -->
+            <div class="form-group">
+                <label for="brandWebsite">Brand Website</label>
+                <input type="url" id="brandWebsite" name="brandWebsite" placeholder="Enter website URL (optional)">
+            </div>
+
+            <!-- Brand Logo Upload -->
+            <div class="form-group">
+                <label for="brandLogo">Upload Brand Logo</label>
+                <input type="file" id="brandLogo" name="brandLogo" accept="image/*">
+            </div>
+
+            <!-- Error Message -->
+            <div id="errorMessage" class="error-message"></div>
+
+            <!-- Submit Button -->
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+<script>
+function handleBrandProfileSubmission() {
+    const brandName = document.getElementById('brandName').value;
+    const brandDescription = document.getElementById('brandDescription').value;
+    const brandCategory = document.getElementById('brandCategory').value;
+    const errorMessage = document.getElementById('errorMessage');
+    const successMessage = document.createElement('div'); // Create a success message element
+
+    // Basic validation: Check if all required fields are filled
+    if (!brandName || !brandDescription || !brandCategory) {
+        errorMessage.textContent = "Please fill in all required fields.";
+        errorMessage.style.display = "block";
+        return false;
+    }
+
+    // Hide the error message if validation passes
+    errorMessage.style.display = "none";
+
+    // Success message display
+    successMessage.textContent = "Brand profile saved successfully!";
+    successMessage.style.color = "green";
+    successMessage.style.fontSize = "1em";
+    document.querySelector('.brand-profile-container').appendChild(successMessage);
+
+    return false; // Prevent actual form submission for demonstration purposes
+}
+</script>
+</body>
+</html>

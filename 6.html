@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loyalty Point Issuance Confirmation</title>
+    <style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.issuance-confirmation-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.loyalty-point-summary {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.loyalty-point-summary p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.confirmation-message {
+    margin-top: 30px;
+    background-color: #dff0d8;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #4CAF50;
+}
+</style>
+</head>
+<body>
+    <div class="issuance-confirmation-container">
+        <h2>Loyalty Point Issuance Confirmation</h2>
+
+        <!-- Loyalty Point Summary -->
+        <div class="loyalty-point-summary">
+            <h3>Review Loyalty Point Details</h3>
+            <p><strong>Point Name:</strong> <span id="pointName"></span></p>
+            <p><strong>Point Symbol:</strong> <span id="pointSymbol"></span></p>
+            <p><strong>Total Supply:</strong> <span id="totalSupply"></span></p>
+            <p><strong>Expiration:</strong> <span id="expiration"></span></p>
+            <p><strong>Transferability:</strong> <span id="transferability"></span></p>
+            <p><strong>Additional Restrictions:</strong> <span id="restrictions"></span></p>
+        </div>
+
+        <!-- Confirmation Button -->
+        <button id="confirmIssuance" onclick="confirmLoyaltyPointIssuance()">Confirm Issuance</button>
+
+        <!-- Confirmation Message -->
+        <div id="confirmationMessage" class="confirmation-message" style="display: none;">
+            <h3>Loyalty Points Issued Successfully!</h3>
+            <p>Your loyalty points have been issued on the blockchain. The details are as follows:</p>
+            <p><strong>Point Name:</strong> <span id="issuedPointName"></span></p>
+            <p><strong>Point Symbol:</strong> <span id="issuedPointSymbol"></span></p>
+            <p><strong>Total Supply:</strong> <span id="issuedTotalSupply"></span></p>
+            <p><strong>Blockchain Transaction ID:</strong> <span id="transactionId"></span></p>
+        </div>
+    </div>
+
+    <script>
+// Simulate fetching loyalty point details (In real case, this would come from the backend)
+const loyaltyPointDetails = {
+    pointName: "Loyalty Gold",
+    pointSymbol: "LG",
+    totalSupply: "100000",
+    expiration: "365 days",
+    transferability: "Yes",
+    restrictions: "No external transfer allowed"
+};
+
+// Display loyalty point details on page load
+window.onload = function() {
+    document.getElementById('pointName').textContent = loyaltyPointDetails.pointName;
+    document.getElementById('pointSymbol').textContent = loyaltyPointDetails.pointSymbol;
+    document.getElementById('totalSupply').textContent = loyaltyPointDetails.totalSupply;
+    document.getElementById('expiration').textContent = loyaltyPointDetails.expiration;
+    document.getElementById('transferability').textContent = loyaltyPointDetails.transferability;
+    document.getElementById('restrictions').textContent = loyaltyPointDetails.restrictions || "None";
+}
+
+// Simulate loyalty point issuance on confirmation
+function confirmLoyaltyPointIssuance() {
+    // In real application, this would involve calling an API to issue points on the blockchain
+
+    // Simulate blockchain transaction ID
+    const transactionId = "0xabc123def456ghi789";
+
+    // Display the confirmation message
+    document.getElementById('confirmationMessage').style.display = "block";
+
+    // Populate confirmation details
+    document.getElementById('issuedPointName').textContent = loyaltyPointDetails.pointName;
+    document.getElementById('issuedPointSymbol').textContent = loyaltyPointDetails.pointSymbol;
+    document.getElementById('issuedTotalSupply').textContent = loyaltyPointDetails.totalSupply;
+    document.getElementById('transactionId').textContent = transactionId;
+
+    // Disable the confirm button to prevent re-submission
+    document.getElementById('confirmIssuance').disabled = true;
+    document.getElementById('confirmIssuance').textContent = "Loyalty Points Issued";
+}
+</script>
+</body>
+</html>
